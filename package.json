@@ -10,10 +10,16 @@
     "type": "git",
     "url": "git+https://github.com/lvblazer/simpleFlightSearch.git"
   },
-  "author": "",
+  "author": "Prasad Khurd",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/lvblazer/simpleFlightSearch/issues"
   },
-  "homepage": "https://github.com/lvblazer/simpleFlightSearch#readme"
+  "homepage": "https://github.com/lvblazer/simpleFlightSearch#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "couchbase": "^2.6.3",
+    "express": "^4.16.4",
+    "uuid": "^3.3.2"
+  }
 }
