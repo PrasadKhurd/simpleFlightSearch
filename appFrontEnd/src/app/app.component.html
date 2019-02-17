@@ -1,20 +1,75 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
+<div *ngIf="false" style="text-align:center">
   <h1>
     Welcome to {{ title }}!
   </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
 
+<div>
+    <form #flightForm="ngForm" (ngSubmit)="onFormSubmit(flightForm)">
+      <div class="row col-md-12 text-center mx-auto  m-t-1">
+          <div class="col-md-5 m-t-1">
+            <div>
+              Flight number:
+              <input name="flightNumber" [ngModel]="searchModel.number" [pattern]="flightNumberPattern"
+                placeholder="Enter flight number" #flightNumber="ngModel">
+            </div>
+            <div *ngIf="flightNumber.errors && flightNumber.touched && flightNumber.dirty && !flightNumber.valid">
+                  <div *ngIf="flightNumber.errors.pattern" style="color: red">
+                    Please enter valid flight number - Four numbers.
+                  </div>
+            </div>
+          </div>
+          <h2 class="col-md-2 m-t-1">OR</h2>
+          <div class="col-md-5 m-t-1">
+            <div>
+              Flight origin:
+              <input name="flightOrigin" [ngModel]="searchModel.origin" [pattern]="flightOriginPattern"
+                placeholder="Enter flight origin" #flightOrigin="ngModel">
+            </div>
+            <div *ngIf="flightOrigin.errors && flightOrigin.touched && flightOrigin.dirty && !flightOrigin.valid">
+                  <div *ngIf="flightOrigin.errors.pattern" style="color: red">
+                    Please enter valid flight origin - Three alphabets.
+                  </div>
+            </div>
+            <div>
+              Flight destination:
+              <input name="flightDestination" [ngModel]="searchModel.destination" [pattern]="flightDestinationPattern"
+                placeholder="Enter flight destination" #flightDestination="ngModel">
+            </div>
+            <div *ngIf="flightDestination.errors && flightDestination.touched && flightDestination.dirty && !flightDestination.valid">
+                  <div *ngIf="flightDestination.errors.pattern" style="color: red">
+                    Please enter valid flight destination - Three alphabets.
+                  </div>
+            </div>
+          </div>
+      </div>
+      <hr>
+      <div>
+        <div class="text-center mx-auto m-t-1">
+          Flight date:
+          <input  type="date" name="flightDate" [ngModel]="searchModel.date" [pattern]="flightDatePattern"
+            placeholder="Enter flight date" #flightDate="ngModel">
+        </div>
+      </div>
+      <div *ngIf="valuesEnteredInBothForms" class="text-center mx-auto" style="color: red">
+        Please enter only flight number and date or flight origin, destination and date. <br>
+        Clear out the flight number or flight origin and destination.
+      </div>
+      <div class="text-center mx-auto m-t-1">
+        <button type="submit" class="btn btn-primary">Search</button>
+      </div>
+    </form>
+</div>
+<hr>
+<div>
+  <div class="text-center">
+    <p class="lead" *ngIf="loading">Loading...</p>
+  </div>
+  <div class="list-group">
+    <div class="list-group-item m-t-5" *ngFor="let flight of flights">
+      <h5>Flight: {{flight.flightNumber}} from {{flight.origin}} to {{flight.destination}} departing {{flight.departure}}</h5>
+      <h6>Status: {{flight.status}}</h6>
+    </div>
+  </div>
+</div>
